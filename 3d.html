@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Ein Haus – 3D Ansicht</title>
+<title>Unser 3D-Haus</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body { margin:0; font-family:Arial,sans-serif; background:#f4f4f4; text-align:center; }
@@ -27,9 +27,8 @@ h1 { margin:20px 0; }
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xcce0ff);
 
-// Kamera mittig auf Haus + etwas Abstand
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth/600, 0.1, 100);
-camera.position.set(5,5,10);  // etwas Abstand, damit Würfel sichtbar sind
+camera.position.set(8, 8, 12);
 camera.lookAt(0,0,0);
 
 // Renderer
@@ -42,11 +41,11 @@ const controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
 // --- Licht ---
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+const ambientLight = new THREE.AmbientLight(0xffffff,0.6);
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-directionalLight.position.set(10,20,10);
+const directionalLight = new THREE.DirectionalLight(0xffffff,0.8);
+directionalLight.position.set(10,15,10);
 scene.add(directionalLight);
 
 // --- Boden / Grundstück ---
@@ -58,15 +57,15 @@ floor.rotation.x = -Math.PI/2;
 floor.position.y = 0;
 scene.add(floor);
 
-// --- Hauswürfel (Basiswürfel) ---
-const brickSize = {x:1, y:1, z:1}; // große Würfel, sichtbar
+// --- Hauswürfel ---
+const brickSize = {x:1, y:1, z:1}; // sichtbar, realistische Größe
 const houseWidth = 5;
 const houseDepth = 5;
 const houseHeight = 4;
-const houseBaseY = 0.5; // Grundlinie Y
+const houseBaseY = 0.5;
 
 const bricks = [];
-for(let y=0;y<houseHeight;y++){
+for(let y=0; y<houseHeight; y++){
   for(let z=0; z<houseDepth; z++){
     for(let x=0; x<houseWidth; x++){
       const cube = new THREE.Mesh(
@@ -80,7 +79,7 @@ for(let y=0;y<houseHeight;y++){
   }
 }
 
-// --- Beispiel-Unterstützer-Würfel ---
+// --- Unterstützerwürfel ---
 const supporters = [
   {name:"Bernhard", package:"25€", pos:[0,0,0]},
   {name:"Ela", package:"5€", pos:[1,0,0]},
@@ -99,27 +98,27 @@ supporters.forEach(s=>{
   bricks.push(cube);
 });
 
-// --- Tooltip für Hover ---
+// --- Tooltip ---
 const tooltip = document.getElementById('tooltip');
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
 function onMouseMove(event){
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = - (event.clientY / 600) * 2 + 1;
-  raycaster.setFromCamera(mouse, camera);
+  mouse.x = (event.clientX/window.innerWidth)*2 - 1;
+  mouse.y = - (event.clientY/600)*2 + 1;
+  raycaster.setFromCamera(mouse,camera);
   const intersects = raycaster.intersectObjects(bricks);
-  if(intersects.length > 0 && intersects[0].object.userData.name){
+  if(intersects.length>0 && intersects[0].object.userData.name){
     const obj = intersects[0].object;
-    tooltip.style.display = 'block';
+    tooltip.style.display='block';
     tooltip.innerHTML = obj.userData.name + ' - ' + obj.userData.package;
     tooltip.style.left = event.clientX + 10 + 'px';
     tooltip.style.top = event.clientY + 10 + 'px';
   } else {
-    tooltip.style.display = 'none';
+    tooltip.style.display='none';
   }
 }
-window.addEventListener('mousemove', onMouseMove, false);
+window.addEventListener('mousemove',onMouseMove,false);
 
 // --- Animate ---
 function animate(){
@@ -130,7 +129,7 @@ function animate(){
 animate();
 
 // --- Resize ---
-window.addEventListener('resize', ()=>{
+window.addEventListener('resize',()=>{
   camera.aspect = window.innerWidth / 600;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth,600);
