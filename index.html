@@ -60,7 +60,7 @@ header p { font-size:1.2em; }
   text-align: center;
 }
 
-/* Brick Overlay über Bild */
+/* Hausbild + Ziegel Overlay */
 #house-layout {
     position: relative;
     width: 100%;
@@ -85,7 +85,9 @@ header p { font-size:1.2em; }
   height: 30px;
   border: 1px solid #999;
   border-radius: 2px;
+  cursor: pointer;
 }
+
 /* Tooltip */
 .brick:hover::after {
   content: attr(data-name) " - " attr(data-package);
@@ -101,6 +103,27 @@ header p { font-size:1.2em; }
   font-size: 14px;
   pointer-events: none;
   z-index: 10;
+}
+
+/* Paket-Legende */
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px auto;
+    flex-wrap: wrap;
+    max-width: 800px;
+}
+.legend div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.legend div span {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    border:1px solid #999;
 }
 
 /* Footer */
@@ -124,20 +147,20 @@ footer {
 <section>
   <h2>Haus & Grundstück</h2>
   <div id="house-layout">
-    <!-- Hier Bild hochladen: house_topview.png -->
     <img src="house_topview.png" alt="Haus & Grundstück">
-
-    <!-- Overlay Raster für Ziegel / Bereiche -->
-    <div class="brick-overlay">
-      <div class="brick" data-name="Bernhard" data-package="25€" style="top:50px; left:80px; background:#b22222;"></div>
-      <div class="brick" data-name="Ela" data-package="5€" style="top:120px; left:200px; background:#ff4c4c;"></div>
-      <div class="brick" data-name="Max" data-package="100€" style="top:200px; left:350px; background:gold;"></div>
-      <div class="brick" data-name="Anna" data-package="1€" style="top:80px; left:300px; background:#ff9999;"></div>
-      <div class="brick" data-name="Lena" data-package="5€" style="top:180px; left:150px; background:#ff4c4c;"></div>
-      <!-- weitere Ziegel -->
+    <div class="brick-overlay" id="brickOverlay">
+      <!-- Ziegel werden automatisch per JS erzeugt -->
     </div>
   </div>
   <p>Hover über einen Ziegel, um Name + Paket zu sehen.</p>
+
+  <!-- Legende -->
+  <div class="legend">
+      <div><span style="background:#ff9999;"></span> 1 €</div>
+      <div><span style="background:#ff4c4c;"></span> 5 €</div>
+      <div><span style="background:#b22222;"></span> 25 €</div>
+      <div><span style="background:gold;"></span> 100 €</div>
+  </div>
 </section>
 
 <!-- Collapsible Sektionen -->
@@ -180,6 +203,29 @@ collapsibles.forEach(el => {
     const content = el.nextElementSibling;
     content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
   });
+});
+
+// Beispiel-Unterstützer-Daten
+const supporters = [
+    {name:"Bernhard", package:"25€", top:50, left:80, color:"#b22222"},
+    {name:"Ela", package:"5€", top:120, left:200, color:"#ff4c4c"},
+    {name:"Max", package:"100€", top:200, left:350, color:"gold"},
+    {name:"Anna", package:"1€", top:80, left:300, color:"#ff9999"},
+    {name:"Lena", package:"5€", top:180, left:150, color:"#ff4c4c"},
+    // weitere Unterstützer hier
+];
+
+// Ziegel automatisch erzeugen
+const overlay = document.getElementById("brickOverlay");
+supporters.forEach(s => {
+    const div = document.createElement("div");
+    div.className = "brick";
+    div.setAttribute("data-name", s.name);
+    div.setAttribute("data-package", s.package);
+    div.style.top = s.top + "px";
+    div.style.left = s.left + "px";
+    div.style.background = s.color;
+    overlay.appendChild(div);
 });
 </script>
 
