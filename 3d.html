@@ -2,10 +2,10 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Grundstück Würfel</title>
+<title>Grundstück 800qm</title>
 <style>
 body { margin:0; background:#87ceeb; display:flex; justify-content:center; align-items:center; height:100vh; }
-#house3d { width:600px; height:600px; }
+#house3d { width:800px; height:600px; }
 </style>
 </head>
 <body>
@@ -13,36 +13,65 @@ body { margin:0; background:#87ceeb; display:flex; justify-content:center; align
 <div id="house3d"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/controls/OrbitControls.js"></script>
 
 <script>
 // Szene
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x87ceeb); // Himmelblau
+scene.background = new THREE.Color(0x87ceeb);
 
 // Kamera
-const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-camera.position.set(5,5,5);
+const camera = new THREE.PerspectiveCamera(60, 800/600, 0.1, 1000);
+camera.position.set(40,30,40);
 camera.lookAt(0,0,0);
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({antialias:true});
-renderer.setSize(600,600);
+renderer.setSize(800,600);
 document.getElementById('house3d').appendChild(renderer.domElement);
 
+// Controls
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+
 // Licht
-const light = new THREE.DirectionalLight(0xffffff,1);
-light.position.set(5,5,5);
-scene.add(light);
-scene.add(new THREE.AmbientLight(0x404040));
+const ambient = new THREE.AmbientLight(0xffffff,0.6);
+scene.add(ambient);
+const dirLight = new THREE.DirectionalLight(0xffffff,0.8);
+dirLight.position.set(50,50,50);
+scene.add(dirLight);
 
-// Grüner Würfel als Grundstück
-const geometry = new THREE.BoxGeometry(3,0.5,3); // Breite, Höhe, Tiefe
-const material = new THREE.MeshStandardMaterial({color:0x006400}); // dunkelgrün
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+// Grundstück als 800 Würfel (28 x 28 = 784 Würfel)
+const cubeSize = 1; // 1 Meter pro Würfel
+const cubes = [];
+const side = Math.ceil(Math.sqrt(800)); // 28,3 → 29 Würfel pro Seite, leicht größer
+for(let x=0; x<side; x++){
+  for(let z=0; z<side; z++){
+    if(cubes.length >= 800) break; // exakt 800 Würfel
+    const cube = new THREE.Mesh(
+      new THREE.BoxGeometry(cubeSize,0.2,cubeSize),
+      new THREE.MeshStandardMaterial({color:0x006400})
+    );
+    cube.position.set(x - side/2 + 0.5, 0, z - side/2 + 0.5);
+    scene.add(cube);
+    cubes.push(cube);
+  }
+}
 
-// Rendern (keine Rotation)
-renderer.render(scene,camera);
+// Animate
+function animate(){
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene,camera);
+}
+animate();
+
+// Resize
+window.addEventListener('resize',()=>{
+  camera.aspect = window.innerWidth/600;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth,600);
+});
 </script>
 
 </body>
