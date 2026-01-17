@@ -2,64 +2,155 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Ziegel für Ziegel</title>
+<title>Ein Haus – viele Namen</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f4f4f4;
+        color: #222;
+        line-height: 1.6;
+    }
+    header {
+        background: #2c2c2c;
+        color: white;
+        padding: 60px 20px;
+        text-align: center;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 2.5em;
+    }
+    header p {
+        font-size: 1.2em;
+    }
+    .cta {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 15px 25px;
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 4px;
+    }
+    .cta:hover {
+        background: #0056b3;
+    }
+    section {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 40px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    section h2 {
+        margin-top: 0;
+    }
+    /* Raster der Ziegel */
+    .brick-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-top: 20px;
+    }
+    .brick {
+        width: 30px;
+        height: 30px;
+        background: #ff6b6b;
+        border: 1px solid #999;
+        border-radius: 2px;
+    }
+    footer {
+        text-align: center;
+        padding: 30px;
+        color: #777;
+        font-size: 14px;
+    }
+</style>
 </head>
-<body style="font-family: Arial; padding:40px; background:#f4f4f4;">
+<body>
 
-<h1>Ein Haus – viele Namen</h1>
-<p>
-Ein reales Haus entsteht – finanziert durch viele kleine Beiträge.
-Jeder Unterstützer wird Teil des Bauwerks und mit seinem Namen verewigt.
-</p>
+<header>
+    <h1>Ein Haus – viele Namen</h1>
+    <p>Ein gemeinsames Haus, gebaut von einer Community. Jeder Beitrag wird sichtbar.</p>
+    <a class="cta" href="#" target="_blank">Jetzt Teil des Projekts werden</a>
+</header>
 
-<h2>Die Idee</h2>
-<p>
-Dieses Projekt verbindet digitale Beteiligung mit einem realen Ziel:
-dem Bau eines echten Hauses.
-</p>
-<p>
-Jeder Beitrag steht symbolisch für einen Teil des Hauses – zum Beispiel
-einen Ziegel, einen Quadratmeter Grundstück oder einen Bereich des Gebäudes.
-Alle Unterstützer werden namentlich im Projekt sichtbar gemacht.
-</p>
+<section>
+    <h2>Die Idee</h2>
+    <p>
+        Dieses Projekt verbindet digitale Beteiligung mit einem realen Ziel: dem Bau eines echten Hauses.
+        Jeder Beitrag steht symbolisch für einen Teil des Hauses – zum Beispiel einen Ziegel,
+        einen Quadratmeter Grundstück oder einen Bereich des Gebäudes.
+        Alle Unterstützer werden namentlich im Projekt sichtbar gemacht.
+    </p>
+</section>
 
-<h2>Warum „Ein Haus – viele Namen“?</h2>
-<ul>
-  <li>Kein anonymes Crowdfunding</li>
-  <li>Jeder Beitrag ist sichtbar und nachvollziehbar</li>
-  <li>Ein gemeinsames Ziel statt abstrakter Spenden</li>
-  <li>Transparente Darstellung des Projektfortschritts</li>
-</ul>
+<section>
+    <h2>Warum „Ein Haus – viele Namen“?</h2>
+    <ul>
+        <li>Kein anonymes Crowdfunding</li>
+        <li>Jeder Beitrag ist sichtbar und nachvollziehbar</li>
+        <li>Ein gemeinsames Ziel statt abstrakter Spenden</li>
+        <li>Transparente Darstellung des Projektfortschritts</li>
+    </ul>
+</section>
 
-<h2>So kannst du mitmachen</h2>
-<p>
-Unterstützer beteiligen sich mit frei wählbaren Beträgen.
-Diese werden symbolisch einzelnen Bauteilen des Hauses zugeordnet.
-</p>
-<p>
-Je nach Beitrag kann ein einzelner Ziegel, ein Teil des Fundaments
-oder ein größerer Bereich des Hauses unterstützt werden.
-</p>
+<section>
+    <h2>So kannst du mitmachen</h2>
+    <p>
+        Unterstützer beteiligen sich mit frei wählbaren Beträgen. Diese werden symbolisch einzelnen Bauteilen des Hauses zugeordnet.
+    </p>
+    <p>
+        Je nach Beitrag kann ein einzelner Ziegel, ein Teil des Fundaments
+        oder ein größerer Bereich des Hauses unterstützt werden.
+    </p>
+</section>
 
-<h2>Transparenz</h2>
-<p>
-Dieses Projekt ist kein Investment und verspricht keine finanzielle Rendite.
-Es handelt sich um ein Community-Projekt mit einem realen Bauziel.
-</p>
-<p>
-Der Fortschritt, die Verwendung der Mittel und der Projektstatus
-werden offen kommuniziert.
-Sollte das Ziel nicht erreicht werden, wird klar dargestellt,
-wie mit den Beiträgen umgegangen wird.
-</p>
+<section>
+    <h2>Virtuelles Haus-Raster</h2>
+    <div class="brick-grid">
+        <!-- Platzhalter-Ziegel (50 Stück) -->
+        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+        <div class="brick"></div><div class="brick"></div>
+    </div>
+    <p>Jeder Ziegel wird später mit Namen der Unterstützer gefüllt.</p>
+</section>
 
-<footer style="margin-top:40px; font-size:14px; color:#777;">
-© 2026 – Ein Haus – viele Namen<br>
-Ein Community-Projekt
+<section>
+    <h2>Transparenz</h2>
+    <p>
+        Dieses Projekt ist kein Investment und verspricht keine finanzielle Rendite.
+        Es handelt sich um ein Community-Projekt mit einem realen Bauziel.
+    </p>
+    <p>
+        Der Fortschritt, die Verwendung der Mittel und der Projektstatus
+        werden offen kommuniziert. Sollte das Ziel nicht erreicht werden, wird klar dargestellt,
+        wie mit den Beiträgen umgegangen wird.
+    </p>
+</section>
+
+<footer>
+    © 2026 – Ein Haus – viele Namen<br>
+    Ein Community-Projekt
 </footer>
-
-
 
 </body>
 </html>
