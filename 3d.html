@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Grundstück 800qm</title>
+<title>Grundstück mit OrbitControls</title>
 <style>
 body { margin:0; background:#87ceeb; display:flex; justify-content:center; align-items:center; height:100vh; }
 #house3d { width:800px; height:600px; }
@@ -13,6 +13,7 @@ body { margin:0; background:#87ceeb; display:flex; justify-content:center; align
 <div id="house3d"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/controls/OrbitControls.js"></script>
 
 <script>
 // Szene
@@ -53,8 +54,25 @@ for(let x=0; x<side; x++){
   }
 }
 
-// Rendern
-renderer.render(scene,camera);
+// --- OrbitControls ---
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; // sanftes Drehen/Zoomen
+controls.dampingFactor = 0.05;
+
+// Animation
+function animate(){
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene,camera);
+}
+animate();
+
+// Resize
+window.addEventListener('resize',()=>{
+  camera.aspect = window.innerWidth/600;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth,600);
+});
 </script>
 
 </body>
