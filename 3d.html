@@ -27,90 +27,96 @@ h1 { margin:20px 0; }
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xcce0ff);
 
+// Kamera mittig auf Haus + etwas Abstand
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth/600, 0.1, 100);
-camera.position.set(3,2,5);
+camera.position.set(5,5,10);  // etwas Abstand, damit Würfel sichtbar sind
+camera.lookAt(0,0,0);
 
+// Renderer
 const renderer = new THREE.WebGLRenderer({antialias:true});
 renderer.setSize(window.innerWidth,600);
 document.getElementById('house3d').appendChild(renderer.domElement);
 
+// OrbitControls
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
 // --- Licht ---
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
 scene.add(ambientLight);
+
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-directionalLight.position.set(5,10,7);
+directionalLight.position.set(10,20,10);
 scene.add(directionalLight);
 
-// --- Boden ---
+// --- Boden / Grundstück ---
 const floor = new THREE.Mesh(
-    new THREE.PlaneGeometry(5,5),
-    new THREE.MeshStandardMaterial({color:0x88cc88})
+  new THREE.PlaneGeometry(10,10),
+  new THREE.MeshStandardMaterial({color:0x88cc88})
 );
 floor.rotation.x = -Math.PI/2;
 floor.position.y = 0;
 scene.add(floor);
 
-// --- Hauswürfel ---
-const brickSize = {x:0.2, y:0.1, z:0.05};
-const houseBase = {x:-0.5, y:0.05, z:-0.5};
-const houseWidth = 5, houseDepth = 5, houseHeight = 4;
-
-// Beispiel Ziegel für Unterstützer
-const supporters = [
-  {name:"Bernhard", package:"25€", pos:[0,0,0]},
-  {name:"Ela", package:"5€", pos:[1,0,0]},
-  {name:"Max", package:"100€", pos:[0,1,0]},
-  {name:"Anna", package:"1€", pos:[2,0,1]},
-];
+// --- Hauswürfel (Basiswürfel) ---
+const brickSize = {x:1, y:1, z:1}; // große Würfel, sichtbar
+const houseWidth = 5;
+const houseDepth = 5;
+const houseHeight = 4;
+const houseBaseY = 0.5; // Grundlinie Y
 
 const bricks = [];
 for(let y=0;y<houseHeight;y++){
-  for(let z=0;z<houseDepth;z++){
-    for(let x=0;x<houseWidth;x++){
+  for(let z=0; z<houseDepth; z++){
+    for(let x=0; x<houseWidth; x++){
       const cube = new THREE.Mesh(
         new THREE.BoxGeometry(brickSize.x, brickSize.y, brickSize.z),
         new THREE.MeshStandardMaterial({color:0xffe0b2})
       );
-      cube.position.set(houseBase.x + x*brickSize.x, houseBase.y + y*brickSize.y, houseBase.z + z*brickSize.z);
+      cube.position.set(x, houseBaseY + y*brickSize.y, z);
       scene.add(cube);
       bricks.push(cube);
     }
   }
 }
 
-// Unterstützer-Würfel (rot) oben drauf
+// --- Beispiel-Unterstützer-Würfel ---
+const supporters = [
+  {name:"Bernhard", package:"25€", pos:[0,0,0]},
+  {name:"Ela", package:"5€", pos:[1,0,0]},
+  {name:"Max", package:"100€", pos:[2,0,0]},
+  {name:"Anna", package:"1€", pos:[3,0,0]},
+];
+
 supporters.forEach(s=>{
   const cube = new THREE.Mesh(
     new THREE.BoxGeometry(brickSize.x, brickSize.y, brickSize.z),
     new THREE.MeshStandardMaterial({color:0xff6666})
   );
-  cube.position.set(houseBase.x + s.pos[0]*brickSize.x, houseBase.y + s.pos[1]*brickSize.y + houseHeight*brickSize.y, houseBase.z + s.pos[2]*brickSize.z);
+  cube.position.set(s.pos[0], houseBaseY + houseHeight*brickSize.y + s.pos[1]*brickSize.y, s.pos[2]);
   cube.userData = {name:s.name, package:s.package};
   scene.add(cube);
   bricks.push(cube);
 });
 
-// --- Tooltip ---
+// --- Tooltip für Hover ---
 const tooltip = document.getElementById('tooltip');
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
 function onMouseMove(event){
-  mouse.x = (event.clientX/window.innerWidth)*2 - 1;
-  mouse.y = -(event.clientY/600)*2 + 1;
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = - (event.clientY / 600) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
   const intersects = raycaster.intersectObjects(bricks);
-  if(intersects.length>0 && intersects[0].object.userData.name){
+  if(intersects.length > 0 && intersects[0].object.userData.name){
     const obj = intersects[0].object;
-    tooltip.style.display='block';
+    tooltip.style.display = 'block';
     tooltip.innerHTML = obj.userData.name + ' - ' + obj.userData.package;
     tooltip.style.left = event.clientX + 10 + 'px';
     tooltip.style.top = event.clientY + 10 + 'px';
   } else {
-    tooltip.style.display='none';
+    tooltip.style.display = 'none';
   }
 }
 window.addEventListener('mousemove', onMouseMove, false);
