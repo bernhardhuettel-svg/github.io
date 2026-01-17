@@ -5,70 +5,88 @@
 <title>Ein Haus – viele Namen</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-        background: #f4f4f4;
-        color: #222;
-        line-height: 1.6;
-    }
-    header {
-        background: #2c2c2c;
-        color: white;
-        padding: 60px 20px;
-        text-align: center;
-    }
-    header h1 {
-        margin: 0;
-        font-size: 2.5em;
-    }
-    header p {
-        font-size: 1.2em;
-    }
-    .cta {
-        display: inline-block;
-        margin-top: 20px;
-        padding: 15px 25px;
-        background: #007bff;
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        border-radius: 4px;
-    }
-    .cta:hover {
-        background: #0056b3;
-    }
-    section {
-        max-width: 900px;
-        margin: 20px auto;
-        padding: 40px;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    section h2 {
-        margin-top: 0;
-    }
-    /* Raster der Ziegel */
-    .brick-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
-        margin-top: 20px;
-    }
-    .brick {
-        width: 30px;
-        height: 30px;
-        background: #ff6b6b;
-        border: 1px solid #999;
-        border-radius: 2px;
-    }
-    footer {
-        text-align: center;
-        padding: 30px;
-        color: #777;
-        font-size: 14px;
-    }
+body {
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f4f4;
+    color: #222;
+    line-height: 1.6;
+}
+header {
+    background: #2c2c2c;
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+header h1 { margin: 0; font-size: 2.5em; }
+header p { font-size: 1.2em; }
+.cta {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 25px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+}
+.cta:hover { background: #0056b3; }
+
+/* Akkordeons */
+.accordion {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-top:10px;
+}
+.accordion:hover { background-color: #0056b3; }
+.panel {
+    padding: 0 15px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+    border-radius: 0 0 4px 4px;
+    margin-bottom:10px;
+}
+
+/* Raster */
+.brick-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 20px;
+}
+.brick {
+    width: 30px;
+    height: 30px;
+    background: #ff6b6b;
+    border: 1px solid #999;
+    border-radius: 2px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #777;
+    font-size: 14px;
+}
+
+/* 3D House Container */
+#house3d {
+    width: 100%;
+    height: 400px;
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
 </style>
 </head>
 <body>
@@ -79,78 +97,123 @@
     <a class="cta" href="#" target="_blank">Jetzt Teil des Projekts werden</a>
 </header>
 
-<section>
-    <h2>Die Idee</h2>
-    <p>
-        Dieses Projekt verbindet digitale Beteiligung mit einem realen Ziel: dem Bau eines echten Hauses.
-        Jeder Beitrag steht symbolisch für einen Teil des Hauses – zum Beispiel einen Ziegel,
-        einen Quadratmeter Grundstück oder einen Bereich des Gebäudes.
-        Alle Unterstützer werden namentlich im Projekt sichtbar gemacht.
-    </p>
-</section>
+<!-- Akkordeons für alle Sektionen -->
+<button class="accordion">Die Idee</button>
+<div class="panel">
+  <p>Dieses Projekt verbindet digitale Beteiligung mit einem realen Ziel: dem Bau eines echten Hauses. Jeder Beitrag steht symbolisch für einen Teil des Hauses – zum Beispiel einen Ziegel, einen Quadratmeter Grundstück oder einen Bereich des Gebäudes. Alle Unterstützer werden namentlich im Projekt sichtbar gemacht.</p>
+</div>
 
-<section>
-    <h2>Warum „Ein Haus – viele Namen“?</h2>
-    <ul>
-        <li>Kein anonymes Crowdfunding</li>
-        <li>Jeder Beitrag ist sichtbar und nachvollziehbar</li>
-        <li>Ein gemeinsames Ziel statt abstrakter Spenden</li>
-        <li>Transparente Darstellung des Projektfortschritts</li>
-    </ul>
-</section>
+<button class="accordion">Warum „Ein Haus – viele Namen“?</button>
+<div class="panel">
+  <ul>
+    <li>Kein anonymes Crowdfunding</li>
+    <li>Jeder Beitrag ist sichtbar und nachvollziehbar</li>
+    <li>Ein gemeinsames Ziel statt abstrakter Spenden</li>
+    <li>Transparente Darstellung des Projektfortschritts</li>
+  </ul>
+</div>
 
-<section>
-    <h2>So kannst du mitmachen</h2>
-    <p>
-        Unterstützer beteiligen sich mit frei wählbaren Beträgen. Diese werden symbolisch einzelnen Bauteilen des Hauses zugeordnet.
-    </p>
-    <p>
-        Je nach Beitrag kann ein einzelner Ziegel, ein Teil des Fundaments
-        oder ein größerer Bereich des Hauses unterstützt werden.
-    </p>
-</section>
+<button class="accordion">So kannst du mitmachen</button>
+<div class="panel">
+  <p>Unterstützer beteiligen sich mit frei wählbaren Beträgen. Diese werden symbolisch einzelnen Bauteilen des Hauses zugeordnet. Je nach Beitrag kann ein einzelner Ziegel, ein Teil des Fundaments oder ein größerer Bereich des Hauses unterstützt werden.</p>
+</div>
 
-<section>
-    <h2>Virtuelles Haus-Raster</h2>
-    <div class="brick-grid">
-        <!-- Platzhalter-Ziegel (50 Stück) -->
-        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
-        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
-        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
-        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
-        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
-        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
-        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
-        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
-        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
-        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
-        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
-        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
-        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
-        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
-        <div class="brick"></div><div class="brick"></div><div class="brick"></div>
-        <div class="brick"></div><div class="brick"></div>
-    </div>
-    <p>Jeder Ziegel wird später mit Namen der Unterstützer gefüllt.</p>
-</section>
+<button class="accordion">Virtuelles Haus-Raster</button>
+<div class="panel">
+  <div class="brick-grid">
+    <!-- Platzhalter-Ziegel (50 Stück) -->
+    <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+    <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+    <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+    <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+    <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+    <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+    <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+    <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+    <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+    <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+    <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+    <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+    <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+    <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+    <div class="brick"></div><div class="brick"></div>
+  </div>
+  <p>Jeder Ziegel wird später mit Namen der Unterstützer gefüllt.</p>
+</div>
 
-<section>
-    <h2>Transparenz</h2>
-    <p>
-        Dieses Projekt ist kein Investment und verspricht keine finanzielle Rendite.
-        Es handelt sich um ein Community-Projekt mit einem realen Bauziel.
-    </p>
-    <p>
-        Der Fortschritt, die Verwendung der Mittel und der Projektstatus
-        werden offen kommuniziert. Sollte das Ziel nicht erreicht werden, wird klar dargestellt,
-        wie mit den Beiträgen umgegangen wird.
-    </p>
-</section>
+<button class="accordion">3D-Haus + Grundstück</button>
+<div class="panel">
+  <div id="house3d"></div>
+</div>
+
+<button class="accordion">Transparenz</button>
+<div class="panel">
+  <p>Dieses Projekt ist kein Investment und verspricht keine finanzielle Rendite. Es handelt sich um ein Community-Projekt mit einem realen Bauziel.</p>
+  <p>Der Fortschritt, die Verwendung der Mittel und der Projektstatus werden offen kommuniziert. Sollte das Ziel nicht erreicht werden, wird klar dargestellt, wie mit den Beiträgen umgegangen wird.</p>
+</div>
 
 <footer>
     © 2026 – Ein Haus – viele Namen<br>
     Ein Community-Projekt
 </footer>
+
+<!-- Akkordeon Script -->
+<script>
+var acc = document.getElementsByClassName("accordion");
+for (let i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    panel.style.display = (panel.style.display === "block") ? "none" : "block";
+  });
+}
+</script>
+
+<!-- Three.js 3D Haus -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+<script>
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xf0f0f0);
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth/400, 0.1, 1000);
+camera.position.set(10, 15, 20);
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(window.innerWidth,400);
+document.getElementById('house3d').appendChild(renderer.domElement);
+
+// Licht
+const light = new THREE.DirectionalLight(0xffffff,1);
+light.position.set(10,20,10);
+scene.add(light);
+
+// Grundstück
+const groundGeo = new THREE.BoxGeometry(16,0.1,16);
+const groundMat = new THREE.MeshLambertMaterial({color:0x228B22});
+const ground = new THREE.Mesh(groundGeo, groundMat);
+ground.position.y = 0;
+scene.add(ground);
+
+// Haus
+const houseGeo = new THREE.BoxGeometry(6,4,6);
+const houseMat = new THREE.MeshLambertMaterial({color:0xff6b6b});
+const house = new THREE.Mesh(houseGeo, houseMat);
+house.position.y = 2;
+scene.add(house);
+
+// Animation
+function animate(){
+  requestAnimationFrame(animate);
+  house.rotation.y += 0.01;
+  renderer.render(scene,camera);
+}
+animate();
+
+// Responsiv
+window.addEventListener('resize',()=>{
+  camera.aspect = window.innerWidth/400;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth,400);
+});
+</script>
 
 </body>
 </html>
