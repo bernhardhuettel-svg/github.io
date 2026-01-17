@@ -126,7 +126,8 @@ header p { font-size:1.2em; }
     border:1px solid #999;
 }
 
-/* Footer */
+/* Über uns */
+section h2 { margin-top:40px; }
 footer {
     text-align: center;
     padding: 30px;
@@ -148,9 +149,7 @@ footer {
   <h2>Haus & Grundstück</h2>
   <div id="house-layout">
     <img src="house_topview.png" alt="Haus & Grundstück">
-    <div class="brick-overlay" id="brickOverlay">
-      <!-- Ziegel werden automatisch per JS erzeugt -->
-    </div>
+    <div class="brick-overlay" id="brickOverlay"></div>
   </div>
   <p>Hover über einen Ziegel, um Name + Paket zu sehen.</p>
 
@@ -160,6 +159,33 @@ footer {
       <div><span style="background:#ff4c4c;"></span> 5 €</div>
       <div><span style="background:#b22222;"></span> 25 €</div>
       <div><span style="background:gold;"></span> 100 €</div>
+  </div>
+</section>
+
+<!-- Über uns -->
+<section>
+  <h2>Wer wir sind</h2>
+  <div style="max-width:800px; margin: 0 auto; display:flex; flex-wrap:wrap; justify-content:center; gap:20px; align-items:center;">
+    
+    <!-- Bernhard -->
+    <div style="flex:1 1 200px; text-align:center;">
+      <img src="bernhard.png" alt="Bernhard" style="width:150px; height:150px; border-radius:50%; object-fit:cover; display:block; margin:0 auto 10px auto;">
+      <h3>Bernhard</h3>
+      <p>Ich bin Bernhard, Projektleiter und Visionär hinter „Ein Haus – viele Namen“. Ich liebe es, Ideen digital und real zu verbinden und Menschen zusammenzubringen.</p>
+    </div>
+
+    <!-- Ela -->
+    <div style="flex:1 1 200px; text-align:center;">
+      <img src="ela.png" alt="Ela" style="width:150px; height:150px; border-radius:50%; object-fit:cover; display:block; margin:0 auto 10px auto;">
+      <h3>Ela</h3>
+      <p>Ich bin Ela und unterstütze Bernhard bei allen kreativen und organisatorischen Aufgaben. Für uns ist dieses Projekt eine Herzensangelegenheit, das Menschen verbindet.</p>
+    </div>
+    
+  </div>
+
+  <!-- Persönliche Botschaft / Motivation -->
+  <div style="max-width:600px; margin:30px auto; background:#fff4e6; padding:20px; border-radius:10px; font-style:italic; color:#333;">
+    <p>„Unser Traum ist es, etwas zu schaffen, das Menschen zusammenbringt und jeden Beitrag sichtbar macht. Jeder Ziegel, jede Beteiligung zeigt: Gemeinsam können wir Großes erreichen. Wir laden dich ein, Teil dieser besonderen Reise zu sein und unser Haus mit Leben zu füllen.“</p>
   </div>
 </section>
 
@@ -211,8 +237,7 @@ const supporters = [
     {name:"Ela", package:"5€", top:120, left:200, color:"#ff4c4c"},
     {name:"Max", package:"100€", top:200, left:350, color:"gold"},
     {name:"Anna", package:"1€", top:80, left:300, color:"#ff9999"},
-    {name:"Lena", package:"5€", top:180, left:150, color:"#ff4c4c"},
-    // weitere Unterstützer hier
+    {name:"Lena", package:"5€", top:180, left:150, color:"#ff4c4c"}
 ];
 
 // Ziegel automatisch erzeugen
