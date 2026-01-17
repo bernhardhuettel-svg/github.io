@@ -21,17 +21,13 @@ scene.background = new THREE.Color(0x87ceeb);
 
 // Kamera
 const camera = new THREE.PerspectiveCamera(60, 800/600, 0.1, 1000);
-camera.position.set(40,30,40);
+camera.position.set(40,40,40);
 camera.lookAt(0,0,0);
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({antialias:true});
 renderer.setSize(800,600);
 document.getElementById('house3d').appendChild(renderer.domElement);
-
-// Controls
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
 
 // Licht
 const ambient = new THREE.AmbientLight(0xffffff,0.6);
@@ -40,13 +36,13 @@ const dirLight = new THREE.DirectionalLight(0xffffff,0.8);
 dirLight.position.set(50,50,50);
 scene.add(dirLight);
 
-// Grundstück als 800 Würfel (28 x 28 = 784 Würfel)
-const cubeSize = 1; // 1 Meter pro Würfel
+// Grundstück: 800 Würfel
+const cubeSize = 1;
 const cubes = [];
-const side = Math.ceil(Math.sqrt(800)); // 28,3 → 29 Würfel pro Seite, leicht größer
+const side = Math.ceil(Math.sqrt(800)); // 29 Würfel pro Seite
 for(let x=0; x<side; x++){
   for(let z=0; z<side; z++){
-    if(cubes.length >= 800) break; // exakt 800 Würfel
+    if(cubes.length >= 800) break;
     const cube = new THREE.Mesh(
       new THREE.BoxGeometry(cubeSize,0.2,cubeSize),
       new THREE.MeshStandardMaterial({color:0x006400})
@@ -57,20 +53,8 @@ for(let x=0; x<side; x++){
   }
 }
 
-// Animate
-function animate(){
-  requestAnimationFrame(animate);
-  controls.update();
-  renderer.render(scene,camera);
-}
-animate();
-
-// Resize
-window.addEventListener('resize',()=>{
-  camera.aspect = window.innerWidth/600;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth,600);
-});
+// Rendern
+renderer.render(scene,camera);
 </script>
 
 </body>
