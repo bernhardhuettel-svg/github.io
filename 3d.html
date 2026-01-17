@@ -2,11 +2,9 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Unser 3D-Haus</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D Haus sichtbar</title>
 <style>
-body { margin:0; font-family:Arial,sans-serif; background:#f4f4f4; text-align:center; }
-h1 { margin:20px 0; }
+body { margin:0; font-family:Arial,sans-serif; text-align:center; }
 #house3d { width:100%; height:600px; display:block; background:#cce0ff; }
 .tooltip { position:absolute; background: rgba(0,0,0,0.8); color:white; padding:5px 10px; border-radius:5px; font-size:14px; pointer-events:none; display:none; z-index:100; }
 .cta { display:inline-block; margin:10px; padding:10px 20px; background:#28a745; color:white; text-decoration:none; font-weight:bold; border-radius:4px; }
@@ -14,7 +12,7 @@ h1 { margin:20px 0; }
 </head>
 <body>
 
-<h1>Unser Haus – 3D Ansicht</h1>
+<h1>3D Haus sichtbar</h1>
 <a class="cta" href="index.html">Zurück zur Startseite</a>
 <div id="house3d"></div>
 <div class="tooltip" id="tooltip"></div>
@@ -23,32 +21,30 @@ h1 { margin:20px 0; }
 <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/controls/OrbitControls.js"></script>
 
 <script>
-// --- Szene & Kamera ---
+// Szene und Kamera
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xcce0ff);
-
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth/600, 0.1, 100);
-camera.position.set(8, 8, 12);
-camera.lookAt(0,0,0);
+camera.position.set(10,10,15);
+camera.lookAt(0,2,0);
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({antialias:true});
 renderer.setSize(window.innerWidth,600);
 document.getElementById('house3d').appendChild(renderer.domElement);
 
-// OrbitControls
+// Controls
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
-// --- Licht ---
-const ambientLight = new THREE.AmbientLight(0xffffff,0.6);
-scene.add(ambientLight);
+// Licht
+const ambient = new THREE.AmbientLight(0xffffff,0.6);
+scene.add(ambient);
+const dirLight = new THREE.DirectionalLight(0xffffff,0.8);
+dirLight.position.set(10,20,10);
+scene.add(dirLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff,0.8);
-directionalLight.position.set(10,15,10);
-scene.add(directionalLight);
-
-// --- Boden / Grundstück ---
+// Boden / Grundstück
 const floor = new THREE.Mesh(
   new THREE.PlaneGeometry(10,10),
   new THREE.MeshStandardMaterial({color:0x88cc88})
@@ -57,8 +53,8 @@ floor.rotation.x = -Math.PI/2;
 floor.position.y = 0;
 scene.add(floor);
 
-// --- Hauswürfel ---
-const brickSize = {x:1, y:1, z:1}; // sichtbar, realistische Größe
+// Hauswürfel
+const brickSize = {x:1, y:1, z:1};
 const houseWidth = 5;
 const houseDepth = 5;
 const houseHeight = 4;
@@ -72,19 +68,18 @@ for(let y=0; y<houseHeight; y++){
         new THREE.BoxGeometry(brickSize.x, brickSize.y, brickSize.z),
         new THREE.MeshStandardMaterial({color:0xffe0b2})
       );
-      cube.position.set(x, houseBaseY + y*brickSize.y, z);
+      // Verschiebe Haus in die Mitte
+      cube.position.set(x - houseWidth/2 + 0.5, houseBaseY + y*brickSize.y, z - houseDepth/2 + 0.5);
       scene.add(cube);
       bricks.push(cube);
     }
   }
 }
 
-// --- Unterstützerwürfel ---
+// Beispiel-Unterstützerwürfel
 const supporters = [
   {name:"Bernhard", package:"25€", pos:[0,0,0]},
-  {name:"Ela", package:"5€", pos:[1,0,0]},
-  {name:"Max", package:"100€", pos:[2,0,0]},
-  {name:"Anna", package:"1€", pos:[3,0,0]},
+  {name:"Ela", package:"5€", pos:[1,0,0]}
 ];
 
 supporters.forEach(s=>{
@@ -92,20 +87,19 @@ supporters.forEach(s=>{
     new THREE.BoxGeometry(brickSize.x, brickSize.y, brickSize.z),
     new THREE.MeshStandardMaterial({color:0xff6666})
   );
-  cube.position.set(s.pos[0], houseBaseY + houseHeight*brickSize.y + s.pos[1]*brickSize.y, s.pos[2]);
+  cube.position.set(s.pos[0] - houseWidth/2 + 0.5, houseBaseY + houseHeight*brickSize.y, s.pos[2] - houseDepth/2 + 0.5);
   cube.userData = {name:s.name, package:s.package};
   scene.add(cube);
   bricks.push(cube);
 });
 
-// --- Tooltip ---
+// Tooltip
 const tooltip = document.getElementById('tooltip');
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
-
 function onMouseMove(event){
   mouse.x = (event.clientX/window.innerWidth)*2 - 1;
-  mouse.y = - (event.clientY/600)*2 + 1;
+  mouse.y = -(event.clientY/600)*2 + 1;
   raycaster.setFromCamera(mouse,camera);
   const intersects = raycaster.intersectObjects(bricks);
   if(intersects.length>0 && intersects[0].object.userData.name){
@@ -120,7 +114,7 @@ function onMouseMove(event){
 }
 window.addEventListener('mousemove',onMouseMove,false);
 
-// --- Animate ---
+// Animation
 function animate(){
   requestAnimationFrame(animate);
   controls.update();
@@ -128,9 +122,9 @@ function animate(){
 }
 animate();
 
-// --- Resize ---
+// Resize
 window.addEventListener('resize',()=>{
-  camera.aspect = window.innerWidth / 600;
+  camera.aspect = window.innerWidth/600;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth,600);
 });
